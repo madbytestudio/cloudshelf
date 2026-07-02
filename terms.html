@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terms of Service — CloudShelf</title>
+  <link rel="icon" href="img/app-logo.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav>
+  <div class="nav-left">
+    <div class="nav-logo">
+      <img src="img/app-logo.png" alt="CloudShelf"> CloudShelf
+    </div>
+    <button class="menu-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')">☰</button>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+    </div>
+  </div>
+  <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">Dark</button>
+</nav>
+
+<div class="legal">
+  <h1>Terms of Service</h1>
+  <p class="date">Last updated: June 27, 2026</p>
+
+  <h2>1. Acceptance</h2>
+  <p>By downloading, installing, or using CloudShelf ("the App"), you agree to be bound by these Terms of Service. If you do not agree, do not use the App.</p>
+
+  <h2>2. Description of Service</h2>
+  <p>CloudShelf is a digital reading application that provides offline PDF reading, encrypted note-taking, and DRM-protected content access. The App is available on Windows and Android platforms.</p>
+
+  <h2>3. User Accounts</h2>
+  <p>To access certain features (book purchases, note syncing), you must create an account. You are responsible for maintaining the confidentiality of your credentials and for all activities under your account. You must provide accurate information and update it as needed.</p>
+
+  <h2>4. License</h2>
+  <p>We grant you a limited, non-exclusive, non-transferable, revocable license to use the App for personal, non-commercial purposes. This license does not allow you to:</p>
+  <ul>
+    <li>Modify, reverse-engineer, decompile, or disassemble the App</li>
+    <li>Circumvent any DRM, encryption, or content protection mechanisms</li>
+    <li>Distribute, sublicense, or sell the App or its content</li>
+    <li>Use the App for any unlawful purpose</li>
+  </ul>
+
+  <h2>5. Content Protection (DRM)</h2>
+  <p>The App incorporates digital rights management (DRM) technologies to protect copyrighted content. You agree not to:</p>
+  <ul>
+    <li>Attempt to bypass, disable, or circumvent any DRM or security features</li>
+    <li>Take screenshots, screen recordings, or captures of DRM-protected content</li>
+    <li>Share, distribute, or upload DRM-protected content to third parties</li>
+    <li>Use developer tools, debugging tools, or automated scripts to extract content</li>
+  </ul>
+  <p>Violation of these protections may result in immediate termination of your access and legal action.</p>
+
+  <h2>6. User Content (Notes)</h2>
+  <p>Any notes, highlights, or annotations you create within the App are your property. You retain all rights to your content. The App encrypts your notes end-to-end; we cannot access or recover them. You are solely responsible for backing up your notes.</p>
+
+  <h2>7. Purchases &amp; Refunds</h2>
+  <p>Books and other digital content are purchased through ToyyibPay, a third-party payment processor. All payments are subject to ToyyibPay's terms. Purchases are non-refundable unless required by applicable law. We reserve the right to modify or discontinue content availability.</p>
+
+  <h2>8. Updates &amp; Availability</h2>
+  <p>We may provide automatic updates to the App to improve security, features, or performance. We do not guarantee that the App will be available at all times or that it will be compatible with all devices.</p>
+
+  <h2>9. Limitation of Liability</h2>
+  <p>To the maximum extent permitted by law, CloudShelf and its developers shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising from your use of the App. This includes, but is not limited to, loss of data, loss of access to purchased content, or device damage.</p>
+
+  <h2>10. Termination</h2>
+  <p>We reserve the right to terminate or suspend your account and access to the App at any time, without prior notice, for conduct that we believe violates these Terms or is harmful to other users, third parties, or our interests.</p>
+  <p>Upon termination, your license to use the App ends. Sections 5 (Content Protection), 9 (Limitation of Liability), and 11 (Governing Law) survive termination.</p>
+
+  <h2>11. Governing Law</h2>
+  <p>These Terms shall be governed by and construed in accordance with the laws of Malaysia. Any disputes arising under these Terms shall be subject to the exclusive jurisdiction of the courts of Malaysia.</p>
+
+  <h2>12. Changes to Terms</h2>
+  <p>We may update these Terms from time to time. We will notify users of material changes via the App or email. Continued use after changes constitutes acceptance of the new Terms.</p>
+
+  <h2>13. Contact</h2>
+  <p>For questions about these Terms: <a href="mailto:madbyte.studio@gmail.com">madbyte.studio@gmail.com</a></p>
+</div>
+
+<footer>
+  <div class="footer-links">
+    <a href="index.html">Home</a>
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="terms.html">Terms of Service</a>
+    <span>
+      <img src="img/Logo.png" alt="" style="height:24px;width:auto;vertical-align:middle;">
+      Built by MADByte Studio &copy; 2026
+    </span>
+  </div>
+</footer>
+
+<script>
+function toggleTheme() {
+  var html = document.documentElement;
+  var theme = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  html.setAttribute('data-theme', theme);
+  document.getElementById('themeBtn').textContent = theme === 'dark' ? 'Light' : 'Dark';
+  localStorage.setItem('cloudshelf-theme', theme);
+}
+(function() {
+  var saved = localStorage.getItem('cloudshelf-theme') || 'light';
+  document.documentElement.setAttribute('data-theme', saved);
+  document.getElementById('themeBtn').textContent = saved === 'dark' ? 'Light' : 'Dark';
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment Successful — CloudShelf</title>
+  <link rel="icon" href="img/app-logo.png">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .pay-body {
+      display: flex; align-items: center; justify-content: center;
+      min-height: 100vh; padding: 24px;
+    }
+    .pay-card {
+      max-width: 460px; width: 100%; text-align: center;
+    }
+    .pay-card .hero-logo { height: 64px; margin-bottom: 20px; }
+    .pay-icon {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 72px; height: 72px; border-radius: 50%;
+      background: #e8f5e9; color: #2e7d32;
+      font-size: 2.4rem; margin-bottom: 20px;
+    }
+    [data-theme="dark"] .pay-icon {
+      background: #1b3a1b; color: #66bb6a;
+    }
+    .pay-card h1 { font-size: 1.6rem; margin-bottom: 8px; }
+    .pay-card .bill-code {
+      font-size: 0.8rem; color: var(--text-muted);
+      background: var(--surface); display: inline-block;
+      padding: 4px 12px; border-radius: 6px; margin: 12px 0 20px;
+      font-family: monospace;
+    }
+    .pay-card .btn { margin-top: 8px; }
+    .pay-card .auto-msg {
+      font-size: 0.8rem; color: var(--text-muted); margin-top: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div class="pay-body">
+    <div class="pay-card">
+      <img src="img/app-logo.png" alt="CloudShelf" class="hero-logo">
+      <div class="pay-icon">&#10003;</div>
+      <h1>Payment Successful</h1>
+      <p style="color:var(--text-muted);margin-bottom:4px">
+        Your payment has been received.
+      </p>
+      <p style="color:var(--text-muted);margin:0 0 4px;font-size:0.9rem">
+        Please return to the CloudShelf app and tap <strong>Verify payment</strong> to complete your purchase.
+      </p>
+      <div class="bill-code" id="billDisplay"></div>
+      <br>
+      <a class="btn btn-primary" id="openAppBtn" href="cloudshelf://">
+        Open CloudShelf App
+      </a>
+      <p class="auto-msg" id="autoMsg" style="display:none">Redirecting to app in <span id="countdown">3</span>s...</p>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      var params = Object.fromEntries(new URLSearchParams(location.search));
+      try {
+        localStorage.setItem("cloudshelf_toyyibpay_return", JSON.stringify({
+          ...params,
+          at: Date.now()
+        }));
+      } catch (e) {}
+
+      var billCode = params.billcode || params.BillCode || "";
+      var billDisplay = document.getElementById("billDisplay");
+      if (billCode) {
+        billDisplay.textContent = "Bill: " + billCode;
+      } else {
+        billDisplay.style.display = "none";
+      }
+
+      var deepLink = "cloudshelf://payment-return" + (billCode ? "?billcode=" + encodeURIComponent(billCode) : "");
+      document.getElementById("openAppBtn").href = deepLink;
+
+      var seconds = 3;
+      var countdown = document.getElementById("countdown");
+      var autoMsg = document.getElementById("autoMsg");
+      if (seconds > 0) {
+        autoMsg.style.display = "block";
+        var timer = setInterval(function() {
+          seconds--;
+          countdown.textContent = seconds;
+          if (seconds <= 0) {
+            clearInterval(timer);
+            try { window.location.href = deepLink; } catch (_) {}
+            autoMsg.style.display = "none";
+          }
+        }, 1000);
+      }
+
+      var saved = localStorage.getItem("cloudshelf-theme") || "light";
+      document.documentElement.setAttribute("data-theme", saved);
+    })();
+  </script>
+</body>
+</html>
