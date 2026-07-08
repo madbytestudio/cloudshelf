@@ -134,6 +134,7 @@ section { padding: 80px 24px; }
 }
 .download-card h3 { font-size: 1.15rem; margin-bottom: 4px; }
 .download-card p { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 16px; }
+.update-footer { margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--border); font-size: 0.75rem; color: var(--text-muted); }
 
 /* Footer */
 footer {
