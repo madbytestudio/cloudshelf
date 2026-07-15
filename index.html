@@ -10,6 +10,8 @@
 </head>
 <body>
 
+<canvas id="kinetic-canvas" aria-hidden="true"></canvas>
+
 <nav>
   <div class="nav-left">
     <div class="nav-logo">
@@ -27,8 +29,11 @@
 
 <section id="hero">
   <div class="section-inner">
-    <img src="img/app-logo.png" alt="CloudShelf" class="hero-logo">
-    <h1><span>CloudShelf</span> – Your Learning Companion</h1>
+    <div class="hero-logo-tilt">
+      <img src="img/app-logo.png" alt="CloudShelf" class="hero-logo">
+      <h1><span class="swap-text" id="hero-swap">CloudShelf</span></h1>
+    </div>
+    <p class="hero-tagline"><span class="typewriter-container"><span class="typewriter-text" id="typewriter-text"></span><span class="typewriter-cursor">|</span></span></p>
     <p>An offline PDF reader with encrypted notes, DRM protection, and cross-platform support for desktop and mobile.</p>
     <div class="hero-buttons">
       <a href="#download" class="btn btn-primary">Download for Windows</a>
@@ -44,50 +49,37 @@
     <div class="features-grid">
       <div class="feature-card">
         <svg width="72" height="72" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
-        <h3>Offline PDF Reading</h3>
+        <h3 class="scramble-text" data-text="Offline PDF Reading">Offline PDF Reading</h3>
         <p>Download and read your PDFs offline with fast, native rendering. No internet required.</p>
       </div>
       <div class="feature-card">
         <svg width="72" height="72" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-        <h3>Encrypted Notes</h3>
+        <h3 class="scramble-text" data-text="Encrypted Notes">Encrypted Notes</h3>
         <p>Take notes that are encrypted with AES-256-GCM and bound to your device. Only you can read them.</p>
       </div>
       <div class="feature-card">
         <svg width="72" height="72" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/></svg>
-        <h3>DRM Protection</h3>
+        <h3 class="scramble-text" data-text="DRM Protection">DRM Protection</h3>
         <p>Multi-layer protection — native FLAG_SECURE, canvas tampering, and forensic watermarking.</p>
       </div>
       <div class="feature-card">
         <svg width="72" height="72" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12" y2="18"/></svg>
-        <h3>Cross Platform</h3>
+        <h3 class="scramble-text" data-text="Cross Platform">Cross Platform</h3>
         <p>Available on Windows desktop and Android mobile with the same great experience.</p>
       </div>
     </div>
   </div>
 </section>
 
-<section id="screenshots">
-  <h2 class="section-title">Screenshots</h2>
-  <div class="screenshots-wrapper">
-      <div class="screenshots-track">
-        <img src="img/Screenshot_2026-06-26-22-32-04-858_com.badbytestudio.cloudshelfreader.jpg" alt="Library">
-        <img src="img/Screenshot_2026-06-26-22-32-32-667_com.badbytestudio.cloudshelfreader.jpg" alt="Reader">
-        <img src="img/Screenshot_2026-06-26-22-32-37-792_com.badbytestudio.cloudshelfreader.jpg" alt="Notes">
-        <img src="img/Screenshot_2026-06-26-22-32-51-755_com.badbytestudio.cloudshelfreader.jpg" alt="Book">
-        <img src="img/1.png" alt="Feature 1">
-        <img src="img/2.png" alt="Feature 2">
-        <img src="img/3.png" alt="Feature 3">
-        <img src="img/4.png" alt="Feature 4">
-        <img src="img/Screenshot_2026-06-26-22-32-04-858_com.badbytestudio.cloudshelfreader.jpg" alt="Library">
-        <img src="img/Screenshot_2026-06-26-22-32-32-667_com.badbytestudio.cloudshelfreader.jpg" alt="Reader">
-        <img src="img/Screenshot_2026-06-26-22-32-37-792_com.badbytestudio.cloudshelfreader.jpg" alt="Notes">
-        <img src="img/Screenshot_2026-06-26-22-32-51-755_com.badbytestudio.cloudshelfreader.jpg" alt="Book">
-        <img src="img/1.png" alt="Feature 1">
-        <img src="img/2.png" alt="Feature 2">
-        <img src="img/3.png" alt="Feature 3">
-        <img src="img/4.png" alt="Feature 4">
-      </div>
+<section id="gallery">
+  <div class="section-inner">
+    <h2 class="section-title">Gallery</h2>
+    <div class="coverflow-container">
+      <div class="coverflow-track" id="coverflow-track"></div>
+      <button class="coverflow-arrow coverflow-arrow-left" id="coverflow-prev" aria-label="Previous">&#8249;</button>
+      <button class="coverflow-arrow coverflow-arrow-right" id="coverflow-next" aria-label="Next">&#8250;</button>
     </div>
+  </div>
 </section>
 
 <section id="download">
@@ -96,23 +88,62 @@
     <p class="section-sub">Get CloudShelf for your platform.</p>
     <div class="download-buttons">
       <div class="download-card">
-        <h3>Windows</h3>
+        <h3 class="scramble-text" data-text="Windows">Windows</h3>
                         <p>v0.3.0 — 64-bit</p>
                         <a href="apps/CloudShelf_0.3.0_x64_en-US.msi" class="btn btn-primary" download>Download .msi</a>
-        <details style="width:100%;margin-top:12px;font-size:0.85rem;">
-          <summary style="cursor:pointer;color:var(--primary);font-weight:600;">How to install on Windows</summary>
-          <ol style="text-align:left;padding-left:20px;line-height:1.8;color:var(--text);margin-top:8px;">
-            <li>Click <strong>Download .msi</strong> above</li>
-            <li>Open the downloaded <code>.msi</code> file</li>
-            <li>If SmartScreen shows a warning — click <strong>More info</strong>, then <strong>Run anyway</strong></li>
-            <li>Follow the installer steps</li>
-            <li>Launch CloudShelf from your Start Menu</li>
-          </ol>
+        <details class="install-terminal">
+          <summary class="terminal-bar">
+            <span class="terminal-dots">
+              <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+            </span>
+            <span class="terminal-title">install - windows</span>
+          </summary>
+          <div class="terminal-body">
+            <div class="step">
+              <span class="step-line"></span>
+              <span class="step-circle">1</span>
+              <div class="step-content">
+                <span class="step-label">Download the installer</span>
+                <span class="step-desc">Click <strong>Download .msi</strong> above</span>
+              </div>
+            </div>
+            <div class="step">
+              <span class="step-line"></span>
+              <span class="step-circle">2</span>
+              <div class="step-content">
+                <span class="step-label">Run the installer</span>
+                <span class="step-desc">Open the downloaded <code>.msi</code> file</span>
+              </div>
+            </div>
+            <div class="step">
+              <span class="step-line"></span>
+              <span class="step-circle">3</span>
+              <div class="step-content">
+                <span class="step-label">Bypass SmartScreen</span>
+                <span class="step-desc">If you see a warning — click <strong>More info</strong>, then <strong>Run anyway</strong></span>
+              </div>
+            </div>
+            <div class="step">
+              <span class="step-line"></span>
+              <span class="step-circle">4</span>
+              <div class="step-content">
+                <span class="step-label">Complete installation</span>
+                <span class="step-desc">Follow the installer steps</span>
+              </div>
+            </div>
+            <div class="step">
+              <span class="step-circle">5</span>
+              <div class="step-content">
+                <span class="step-label">Launch CloudShelf</span>
+                <span class="step-desc">Open from your Start Menu</span>
+              </div>
+            </div>
+          </div>
         </details>
         <div class="update-footer">Updated: 10 July 2026, 22:00 MYT</div>
       </div>
       <div class="download-card">
-        <h3>Android</h3>
+        <h3 class="scramble-text" data-text="Android">Android</h3>
         <p>v0.2.3 — APK (Standard)</p>
         <div style="display:flex;flex-direction:column;align-items:center;gap:12px;width:100%;">
           <a href="apps/CloudShelf-v0.2.3.apk" class="btn btn-primary" download>Download .apk</a>
@@ -121,20 +152,59 @@
                style="border-radius:8px;border:2px solid var(--border);max-width:180px;height:auto;" />
           <p style="font-size:0.8rem;color:var(--text-muted);margin:0;">Scan with your phone to download</p>
         </div>
-        <details style="width:100%;margin-top:8px;font-size:0.85rem;">
-          <summary style="cursor:pointer;color:var(--primary);font-weight:600;">How to install on Android</summary>
-          <ol style="text-align:left;padding-left:20px;line-height:1.8;color:var(--text);margin-top:8px;">
-            <li>Tap the <strong>Download .apk</strong> button above (or scan the QR code)</li>
-            <li>Open the downloaded file when prompted</li>
-            <li>If you see "Install blocked" — tap <strong>Settings</strong>, toggle <strong>Allow from this source</strong>, then go back</li>
-            <li>Tap <strong>Install</strong></li>
-            <li>Done — open CloudShelf from your app drawer</li>
-          </ol>
+        <details class="install-terminal">
+          <summary class="terminal-bar">
+            <span class="terminal-dots">
+              <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+            </span>
+            <span class="terminal-title">install - android</span>
+          </summary>
+          <div class="terminal-body">
+            <div class="step">
+              <span class="step-line"></span>
+              <span class="step-circle">1</span>
+              <div class="step-content">
+                <span class="step-label">Download the APK</span>
+                <span class="step-desc">Tap <strong>Download .apk</strong> above (or scan the QR code)</span>
+              </div>
+            </div>
+            <div class="step">
+              <span class="step-line"></span>
+              <span class="step-circle">2</span>
+              <div class="step-content">
+                <span class="step-label">Open the file</span>
+                <span class="step-desc">Open the downloaded file when prompted</span>
+              </div>
+            </div>
+            <div class="step">
+              <span class="step-line"></span>
+              <span class="step-circle">3</span>
+              <div class="step-content">
+                <span class="step-label">Allow installation</span>
+                <span class="step-desc">If you see "Install blocked" — tap <strong>Settings</strong>, toggle <strong>Allow from this source</strong>, then go back</span>
+              </div>
+            </div>
+            <div class="step">
+              <span class="step-line"></span>
+              <span class="step-circle">4</span>
+              <div class="step-content">
+                <span class="step-label">Install</span>
+                <span class="step-desc">Tap <strong>Install</strong></span>
+              </div>
+            </div>
+            <div class="step">
+              <span class="step-circle">5</span>
+              <div class="step-content">
+                <span class="step-label">Launch</span>
+                <span class="step-desc">Open CloudShelf from your app drawer</span>
+              </div>
+            </div>
+          </div>
         </details>
         <div class="update-footer">Updated: 10 July 2026, 22:00 MYT</div>
       </div>
       <div class="download-card">
-        <h3>Android (Huawei)</h3>
+        <h3 class="scramble-text" data-text="Android (Huawei)">Android (Huawei)</h3>
         <p>v0.2.3 — APK (Huawei)</p>
         <div style="display:flex;flex-direction:column;align-items:center;gap:12px;width:100%;">
           <a href="apps/CloudShelf-v0.2.3-huawei.apk" class="btn btn-outline" style="border-color:#d9534f;color:#d9534f;" download>Download .apk</a>
@@ -143,15 +213,54 @@
                 style="border-radius:8px;border:2px solid var(--border);max-width:180px;height:auto;" />
           <p style="font-size:0.8rem;color:var(--text-muted);margin:0;max-width:180px;text-align:center;">Scan with your phone to download for Huawei devices or APK(Standard) fails to render PDFs.</p>
         </div>
-        <details style="width:100%;margin-top:8px;font-size:0.85rem;">
-          <summary style="cursor:pointer;color:var(--primary);font-weight:600;">How to install on Huawei</summary>
-          <ol style="text-align:left;padding-left:20px;line-height:1.8;color:var(--text);margin-top:8px;">
-            <li>Tap the <strong>Download .apk</strong> button above (or scan the QR code)</li>
-            <li>Open the downloaded file when prompted</li>
-            <li>If you see "Install blocked" — tap <strong>Settings</strong>, toggle <strong>Allow from this source</strong>, then go back</li>
-            <li>Tap <strong>Install</strong></li>
-            <li>Done — open CloudShelf from your app drawer</li>
-          </ol>
+        <details class="install-terminal">
+          <summary class="terminal-bar">
+            <span class="terminal-dots">
+              <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+            </span>
+            <span class="terminal-title">install - huawei</span>
+          </summary>
+          <div class="terminal-body">
+            <div class="step">
+              <span class="step-line"></span>
+              <span class="step-circle">1</span>
+              <div class="step-content">
+                <span class="step-label">Download the APK</span>
+                <span class="step-desc">Tap <strong>Download .apk</strong> above (or scan the QR code)</span>
+              </div>
+            </div>
+            <div class="step">
+              <span class="step-line"></span>
+              <span class="step-circle">2</span>
+              <div class="step-content">
+                <span class="step-label">Open the file</span>
+                <span class="step-desc">Open the downloaded file when prompted</span>
+              </div>
+            </div>
+            <div class="step">
+              <span class="step-line"></span>
+              <span class="step-circle">3</span>
+              <div class="step-content">
+                <span class="step-label">Allow installation</span>
+                <span class="step-desc">If you see "Install blocked" — tap <strong>Settings</strong>, toggle <strong>Allow from this source</strong>, then go back</span>
+              </div>
+            </div>
+            <div class="step">
+              <span class="step-line"></span>
+              <span class="step-circle">4</span>
+              <div class="step-content">
+                <span class="step-label">Install</span>
+                <span class="step-desc">Tap <strong>Install</strong></span>
+              </div>
+            </div>
+            <div class="step">
+              <span class="step-circle">5</span>
+              <div class="step-content">
+                <span class="step-label">Launch</span>
+                <span class="step-desc">Open CloudShelf from your app drawer</span>
+              </div>
+            </div>
+          </div>
         </details>
         <div class="update-footer">Updated: 10 July 2026, 22:00 MYT</div>
       </div>
@@ -185,7 +294,543 @@ function toggleTheme() {
   document.getElementById('themeBtn').textContent = saved === 'dark' ? 'Light' : 'Dark';
 })();
 
+/* ========== Magnetic Buttons ========== */
+(function() {
+  var cards = document.querySelectorAll('.download-card');
+  var magData = [];
 
+  function lerp(a, b, t) { return a + (b - a) * t; }
+
+  cards.forEach(function(card) {
+    var btn = card.querySelector('.btn');
+    if (!btn) return;
+
+    var d = { el: btn, cx: 0, cy: 0, tx: 0, ty: 0, curX: 0, curY: 0, active: false };
+    magData.push(d);
+
+    card.addEventListener('mouseenter', function() {
+      var r = btn.getBoundingClientRect();
+      d.cx = r.left + r.width / 2;
+      d.cy = r.top + r.height / 2;
+      d.active = true;
+    });
+
+    card.addEventListener('mousemove', function(e) {
+      var r = btn.getBoundingClientRect();
+      d.cx = r.left + r.width / 2;
+      d.cy = r.top + r.height / 2;
+      var dx = e.clientX - d.cx, dy = e.clientY - d.cy;
+      var dist = Math.sqrt(dx * dx + dy * dy);
+      var maxDist = Math.max(r.width, r.height) * 0.5;
+      var s = Math.min(1, Math.max(0, dist / maxDist));
+      d.tx = dx * 0.5 * (1 - s * 0.15);
+      d.ty = dy * 0.5 * (1 - s * 0.15);
+    });
+
+    card.addEventListener('mouseleave', function() {
+      d.active = false;
+      d.tx = 0; d.ty = 0;
+    });
+  });
+
+  function animateMag() {
+    for (var i = 0; i < magData.length; i++) {
+      var d = magData[i];
+      d.curX = lerp(d.curX, d.tx, d.active ? 0.18 : 0.08);
+      d.curY = lerp(d.curY, d.ty, d.active ? 0.18 : 0.08);
+      d.el.style.setProperty('--mx', d.curX.toFixed(1) + 'px');
+      d.el.style.setProperty('--my', d.curY.toFixed(1) + 'px');
+    }
+    requestAnimationFrame(animateMag);
+  }
+
+  requestAnimationFrame(animateMag);
+})();
+
+/* ========== Typewriter ========== */
+(function() {
+  var el = document.getElementById('typewriter-text');
+  if (!el) return;
+
+  var phrases = [
+    'Your Learning Companion',
+    'Read Anywhere, Even Offline',
+    'Your Notes, Encrypted',
+    'Built for Readers',
+    'Cross-Platform Freedom'
+  ];
+
+  var i = 0, j = 0, deleting = false;
+
+  function type() {
+    var current = phrases[i];
+
+    if (deleting) {
+      el.textContent = current.substring(0, j - 1);
+      j--;
+      if (j === 0) {
+        deleting = false;
+        i = (i + 1) % phrases.length;
+        setTimeout(type, 400);
+        return;
+      }
+      setTimeout(type, 20 + Math.random() * 30);
+    } else {
+      el.textContent = current.substring(0, j + 1);
+      j++;
+      if (j === current.length) {
+        setTimeout(function() { deleting = true; type(); }, 2500);
+        return;
+      }
+      setTimeout(type, 50 + Math.random() * 50);
+    }
+  }
+
+  setTimeout(type, 800);
+})();
+
+/* ========== Random Letter Swap ========== */
+(function() {
+  var el = document.getElementById('hero-swap');
+  if (!el) return;
+
+  var text = el.textContent;
+  el.innerHTML = '';
+  el.style.display = 'inline-block';
+
+  var wrappers = [];
+  var animating = false;
+  var timeouts = [];
+
+  text.split('').forEach(function(char) {
+    var wrapper = document.createElement('span');
+    wrapper.className = 'swap-char-wrapper';
+
+    var primary = document.createElement('span');
+    primary.className = 'swap-char';
+    primary.textContent = char;
+
+    var secondary = document.createElement('span');
+    secondary.className = 'swap-char-secondary';
+    secondary.textContent = char;
+
+    wrapper.appendChild(primary);
+    wrapper.appendChild(secondary);
+    el.appendChild(wrapper);
+    wrappers.push(wrapper);
+  });
+
+  function clearTimeouts() {
+    timeouts.forEach(function(t) { clearTimeout(t); });
+    timeouts = [];
+  }
+
+  function runSwap() {
+    if (animating) return;
+    animating = true;
+    clearTimeouts();
+
+    wrappers.forEach(function(w, idx) {
+      var t = setTimeout(function() { w.classList.add('hover'); }, idx * 50);
+      timeouts.push(t);
+    });
+
+    var reset = setTimeout(function() {
+      wrappers.forEach(function(w, idx) {
+        var t = setTimeout(function() { w.classList.remove('hover'); }, idx * 30);
+        timeouts.push(t);
+      });
+      var done = setTimeout(function() { animating = false; }, wrappers.length * 30 + 600);
+      timeouts.push(done);
+    }, wrappers.length * 50 + 800);
+    timeouts.push(reset);
+  }
+
+  el.addEventListener('mouseenter', runSwap);
+})();
+
+/* ========== Scramble Text ========== */
+(function() {
+  var els = document.querySelectorAll('.scramble-text');
+  if (!els.length) return;
+
+  var pool = '!@#$%^&*()_+-=[]{}|;:,.<>?ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+
+  function scramble(el) {
+    var target = el.getAttribute('data-text') || el.textContent;
+    var frame = 0;
+    var total = 20;
+
+    function step() {
+      if (frame >= total) {
+        el.textContent = target;
+        return;
+      }
+
+      var progress = frame / total;
+      var revealed = Math.floor(target.length * progress);
+
+      var result = '';
+      for (var k = 0; k < target.length; k++) {
+        if (k < revealed) {
+          result += target[k];
+        } else {
+          result += pool[Math.floor(Math.random() * pool.length)];
+        }
+      }
+
+      el.textContent = result;
+      frame++;
+      setTimeout(step, 50);
+    }
+
+    step();
+  }
+
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        var el = entry.target;
+        if (!el.dataset.scrambled) {
+          el.dataset.scrambled = '1';
+          scramble(el);
+        }
+      }
+    });
+  }, { threshold: 0.5 });
+
+  for (var i = 0; i < els.length; i++) {
+    observer.observe(els[i]);
+  }
+})();
+
+/* ========== Feature Card Entrance ========== */
+(function() {
+  var cards = document.querySelectorAll('.feature-card');
+  if (!cards.length) return;
+
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  for (var i = 0; i < cards.length; i++) {
+    observer.observe(cards[i]);
+  }
+})();
+
+/* ========== Feature Icon Stroke Draw ========== */
+(function() {
+  var svgs = document.querySelectorAll('.feature-card svg');
+  for (var i = 0; i < svgs.length; i++) {
+    var paths = svgs[i].querySelectorAll('path, rect, line, circle, polyline, polygon');
+    for (var j = 0; j < paths.length; j++) {
+      var p = paths[j];
+      var len = p.getTotalLength();
+      p.style.setProperty('--path-len', len);
+      p.classList.add('icon-blue');
+
+      var clone = p.cloneNode();
+      clone.removeAttribute('stroke');
+      clone.style.setProperty('--path-len', len);
+      clone.classList.remove('icon-blue');
+      clone.classList.add('icon-cyan');
+      p.parentNode.insertBefore(clone, p.nextSibling);
+    }
+  }
+})();
+
+/* ========== Coverflow Gallery ========== */
+(function() {
+  var track = document.getElementById('coverflow-track');
+  var prevBtn = document.getElementById('coverflow-prev');
+  var nextBtn = document.getElementById('coverflow-next');
+  if (!track) return;
+
+  var images = [
+    'img/Screenshot_2026-06-26-22-32-04-858_com.badbytestudio.cloudshelfreader.jpg',
+    'img/Screenshot_2026-06-26-22-32-32-667_com.badbytestudio.cloudshelfreader.jpg',
+    'img/Screenshot_2026-06-26-22-32-37-792_com.badbytestudio.cloudshelfreader.jpg',
+    'img/Screenshot_2026-06-26-22-32-51-755_com.badbytestudio.cloudshelfreader.jpg',
+    'img/1.png',
+    'img/2.png',
+    'img/3.png',
+    'img/4.png'
+  ];
+
+  var active = 0;
+  var animating = false;
+  var autoTimer;
+  var cards = [];
+  var loaded = 0;
+
+  function getTransform(rel, total) {
+    var abs = Math.abs(rel);
+    var cardH = cards[0] ? cards[0].offsetHeight : 380;
+    var gapX = Math.min(200, cardH * 0.45);
+    var tx = rel * gapX;
+    var tz = -abs * 120;
+    var ry = -rel * 10;
+    var sc = Math.max(0.45, 1 - abs * 0.12);
+    var opacity = Math.max(0.15, 1 - abs * 0.15);
+    return { tx: tx, tz: tz, ry: ry, sc: sc, opacity: opacity, zIndex: total - abs };
+  }
+
+  function positionCards() {
+    var n = images.length;
+    cards.forEach(function(card, i) {
+      var rel = i - active;
+      if (rel > n / 2) rel -= n;
+      if (rel < -n / 2) rel += n;
+
+      var t = getTransform(rel, n);
+      card.style.transform = 'translateX(' + t.tx + 'px) translateZ(' + t.tz + 'px) rotateY(' + t.ry + 'deg) scale(' + t.sc + ')';
+      card.style.opacity = t.opacity;
+      card.style.zIndex = t.zIndex;
+      card.classList.toggle('active', i === active);
+    });
+  }
+
+  function init() {
+    images.forEach(function(src, i) {
+      var card = document.createElement('div');
+      card.className = 'coverflow-card';
+
+      var img = new Image();
+      img.draggable = false;
+      img.loading = 'lazy';
+      img.alt = 'Screenshot ' + (i + 1);
+
+      img.onload = function() {
+        var cardW = card.offsetWidth;
+        card.style.marginLeft = -(cardW / 2) + 'px';
+        card.style.marginTop = -(card.offsetHeight / 2) + 'px';
+        loaded++;
+        if (loaded === images.length) positionCards();
+      };
+
+      img.src = src;
+      card.appendChild(img);
+
+      card.addEventListener('click', function() { goTo(i); });
+      track.appendChild(card);
+      cards.push(card);
+    });
+  }
+
+  function goTo(index) {
+    if (animating || index === active) return;
+    animating = true;
+    active = ((index % images.length) + images.length) % images.length;
+    positionCards();
+    setTimeout(function() { animating = false; }, 500);
+  }
+
+  function next() { goTo(active + 1); }
+  function prev() { goTo(active - 1); }
+
+  function startAuto() { stopAuto(); autoTimer = setInterval(next, 3000); }
+  function stopAuto() { if (autoTimer) { clearInterval(autoTimer); autoTimer = null; } }
+
+  prevBtn.addEventListener('click', prev);
+  nextBtn.addEventListener('click', next);
+  track.addEventListener('mouseenter', stopAuto);
+  track.addEventListener('mouseleave', startAuto);
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowLeft') prev();
+    if (e.key === 'ArrowRight') next();
+  });
+
+  init();
+  startAuto();
+})();
+
+/* ========== Kinetic Grid ========== */
+(function() {
+  var canvas = document.getElementById('kinetic-canvas');
+  if (!canvas) return;
+
+  var ctx = canvas.getContext('2d');
+  var W, H, dots = [];
+  var mouse = { x: -9999, y: -9999, active: false };
+  var trail = [];
+
+  function resize() {
+    W = window.innerWidth;
+    H = window.innerHeight;
+    canvas.width = W;
+    canvas.height = H;
+  }
+
+  function buildGrid() {
+    dots = [];
+    var spacing = 35;
+    var cols = Math.floor(W / spacing) + 2;
+    var rows = Math.floor(H / spacing) + 2;
+    for (var c = 0; c < cols; c++) {
+      for (var r = 0; r < rows; r++) {
+        var hx = c * spacing, hy = r * spacing;
+        dots.push({ hx: hx, hy: hy, x: hx, y: hy, vx: 0, vy: 0 });
+      }
+    }
+  }
+
+  function isDark() {
+    return document.documentElement.getAttribute('data-theme') === 'dark';
+  }
+
+  function animate() {
+    var dark = isDark();
+    var dotColor = dark ? 'rgba(255,255,255,0.3)' : 'rgba(0,0,0,0.1)';
+    var lineColor = dark ? 'rgba(128,172,255,0.08)' : 'rgba(59,130,246,0.06)';
+    var trailColor = dark ? 'rgba(38,100,235,0.2)' : 'rgba(59,130,246,0.1)';
+
+    ctx.clearRect(0, 0, W, H);
+
+    var R = 350, PULL = 1.5;
+
+    for (var i = 0; i < dots.length; i++) {
+      var d = dots[i];
+      var ax = (d.hx - d.x) * 0.06;
+      var ay = (d.hy - d.y) * 0.06;
+
+      if (mouse.active) {
+        var dx = mouse.x - d.x;
+        var dy = mouse.y - d.y;
+        var dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < R && dist > 0.001) {
+          var f = (1 - dist / R) * PULL;
+          ax += (dx / dist) * f;
+          ay += (dy / dist) * f;
+        }
+      }
+
+      d.vx = (d.vx + ax) * 0.82;
+      d.vy = (d.vy + ay) * 0.82;
+      d.x += d.vx;
+      d.y += d.vy;
+    }
+
+    // Lines
+    ctx.strokeStyle = lineColor;
+    ctx.lineWidth = 1;
+    var maxDist = 60;
+    for (var i = 0; i < dots.length; i++) {
+      for (var j = i + 1; j < dots.length; j++) {
+        var dx = dots[i].x - dots[j].x;
+        var dy = dots[i].y - dots[j].y;
+        var dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < maxDist) {
+          ctx.globalAlpha = 1 - dist / maxDist;
+          ctx.beginPath();
+          ctx.moveTo(dots[i].x, dots[i].y);
+          ctx.lineTo(dots[j].x, dots[j].y);
+          ctx.stroke();
+        }
+      }
+    }
+    ctx.globalAlpha = 1;
+
+    // Dots
+    ctx.fillStyle = dotColor;
+    for (var i = 0; i < dots.length; i++) {
+      var d = dots[i];
+      var dx = mouse.x - d.x;
+      var dy = mouse.y - d.y;
+      var dist = Math.sqrt(dx * dx + dy * dy);
+      var r = (dist < R && mouse.active) ? 1.5 + (1 - dist / R) * 2 : 1.2;
+      ctx.beginPath();
+      ctx.arc(d.x, d.y, r, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    // Trail
+    if (trail.length > 1) {
+      ctx.strokeStyle = trailColor;
+      ctx.lineWidth = 2;
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+      ctx.beginPath();
+      ctx.moveTo(trail[0].x, trail[0].y);
+      for (var i = 1; i < trail.length; i++) {
+        ctx.lineTo(trail[i].x, trail[i].y);
+      }
+      ctx.stroke();
+    }
+
+    requestAnimationFrame(animate);
+  }
+
+  function onMove(e) {
+    mouse.x = e.clientX;
+    mouse.y = e.clientY;
+    mouse.active = true;
+    trail.push({ x: e.clientX, y: e.clientY });
+    if (trail.length > 25) trail.shift();
+  }
+
+  function onLeave() {
+    mouse.active = false;
+    trail = [];
+  }
+
+  resize();
+  buildGrid();
+  document.addEventListener('mousemove', onMove);
+  document.addEventListener('mouseleave', onLeave);
+  window.addEventListener('resize', function() { resize(); buildGrid(); });
+
+  var themeObserver = new MutationObserver(function() {});
+  themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+
+  requestAnimationFrame(animate);
+})();
+
+/* ========== Perspective Tilt (Hero Logo) ========== */
+(function() {
+  var tilt = document.querySelector('.hero-logo-tilt');
+  var logo = document.querySelector('.hero-logo');
+  if (!tilt || !logo) return;
+
+  var current = { rx: 0, ry: 0, tx: 0, ty: 0 };
+  var target = { rx: 0, ry: 0, tx: 0, ty: 0 };
+
+  function lerp(a, b, t) { return a + (b - a) * t; }
+
+  function animate() {
+    current.rx = lerp(current.rx, target.rx, 0.08);
+    current.ry = lerp(current.ry, target.ry, 0.08);
+    current.tx = lerp(current.tx, target.tx, 0.08);
+    current.ty = lerp(current.ty, target.ty, 0.08);
+    tilt.style.transform = 'rotateX(' + current.rx + 'deg) rotateY(' + current.ry + 'deg)';
+    logo.style.transform = 'translateX(' + current.tx + 'px) translateY(' + current.ty + 'px)';
+    requestAnimationFrame(animate);
+  }
+
+  function map(value, inMin, inMax, outMin, outMax) {
+    return (value - inMin) / (inMax - inMin) * (outMax - outMin) + outMin;
+  }
+
+  document.addEventListener('pointermove', function(e) {
+    var x = e.clientX / window.innerWidth;
+    var y = e.clientY / window.innerHeight;
+    target.ry = map(x, 0, 1, -25, 25);
+    target.rx = map(y, 0, 1, 25, -25);
+    target.tx = map(x, 0, 1, -45, 45);
+    target.ty = map(y, 0, 1, -45, 45);
+  });
+
+  document.addEventListener('pointerleave', function() {
+    target.rx = 0; target.ry = 0;
+    target.tx = 0; target.ty = 0;
+  });
+
+  requestAnimationFrame(animate);
+})();
 </script>
 </body>
 </html>
