@@ -1,30 +1,47 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Privacy Policy — CloudShelf</title>
+  <meta name="theme-color" content="#3b82f6">
+  <meta property="og:title" content="Privacy Policy — CloudShelf">
+  <meta property="og:description" content="CloudShelf privacy policy — how we collect, use, and protect your data.">
+  <meta property="og:image" content="https://madbytestudio.github.io/cloudshelf/img/app-logo.png">
+  <meta property="og:url" content="https://madbytestudio.github.io/cloudshelf/privacy.html">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="img/app-logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+<canvas id="kinetic-canvas" aria-hidden="true"></canvas>
+
 <nav>
   <div class="nav-left">
-    <div class="nav-logo">
-      <img src="img/app-logo.png" alt="CloudShelf"> CloudShelf
-    </div>
-    <button class="menu-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')">☰</button>
+    <a href="index.html" class="nav-logo">
+      <img src="img/app-logo.png" alt="CloudShelf" decoding="async"> CloudShelf
+    </a>
+    <button class="menu-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open');this.classList.toggle('open')" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
     <div class="nav-links">
       <a href="index.html">Home</a>
-      <a href="privacy.html">Privacy</a>
+      <a href="privacy.html" class="active">Privacy</a>
       <a href="terms.html">Terms</a>
     </div>
   </div>
-  <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">Dark</button>
+  <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn" aria-label="Toggle theme">
+    <svg class="sun-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+    <svg class="moon-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  </button>
 </nav>
 
-<div class="legal">
+<div class="legal reveal">
   <h1>Privacy Policy</h1>
   <p class="date">Last updated: June 27, 2026</p>
 
@@ -85,14 +102,17 @@
 </div>
 
 <footer>
-  <div class="footer-links">
-    <a href="index.html">Home</a>
-    <a href="privacy.html">Privacy Policy</a>
-    <a href="terms.html">Terms of Service</a>
-    <span>
-      <img src="img/Logo.png" alt="" style="height:24px;width:auto;vertical-align:middle;">
-      Built by MADByte Studio &copy; 2026
-    </span>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <img src="img/Logo.png" alt="MADByte Studio" class="footer-logo" decoding="async">
+      <span>CloudShelf by MADByte Studio</span>
+    </div>
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Service</a>
+    </div>
+    <p class="footer-copy">&copy; 2026 MADByte Studio. All rights reserved.</p>
   </div>
 </footer>
 
@@ -101,13 +121,145 @@ function toggleTheme() {
   var html = document.documentElement;
   var theme = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
   html.setAttribute('data-theme', theme);
-  document.getElementById('themeBtn').textContent = theme === 'dark' ? 'Light' : 'Dark';
   localStorage.setItem('cloudshelf-theme', theme);
 }
 (function() {
-  var saved = localStorage.getItem('cloudshelf-theme') || 'light';
+  var saved = localStorage.getItem('cloudshelf-theme') || 'dark';
   document.documentElement.setAttribute('data-theme', saved);
-  document.getElementById('themeBtn').textContent = saved === 'dark' ? 'Light' : 'Dark';
+})();
+
+/* ========== Kinetic Grid ========== */
+(function() {
+  var canvas = document.getElementById('kinetic-canvas');
+  if (!canvas) return;
+  var ctx = canvas.getContext('2d');
+  var W, H, dots = [];
+  var mouse = { x: -9999, y: -9999, active: false };
+  var trail = [];
+  function resize() {
+    W = window.innerWidth;
+    H = window.innerHeight;
+    canvas.width = W;
+    canvas.height = H;
+  }
+  function buildGrid() {
+    dots = [];
+    var spacing = 35;
+    var cols = Math.floor(W / spacing) + 2;
+    var rows = Math.floor(H / spacing) + 2;
+    for (var c = 0; c < cols; c++) {
+      for (var r = 0; r < rows; r++) {
+        var hx = c * spacing, hy = r * spacing;
+        dots.push({ hx: hx, hy: hy, x: hx, y: hy, vx: 0, vy: 0 });
+      }
+    }
+  }
+  function isDark() {
+    return document.documentElement.getAttribute('data-theme') === 'dark';
+  }
+  function animate() {
+    var dark = isDark();
+    var dotColor = dark ? 'rgba(255,255,255,0.3)' : 'rgba(0,0,0,0.1)';
+    var lineColor = dark ? 'rgba(128,172,255,0.08)' : 'rgba(59,130,246,0.06)';
+    var trailColor = dark ? 'rgba(38,100,235,0.2)' : 'rgba(59,130,246,0.1)';
+    ctx.clearRect(0, 0, W, H);
+    var R = 350, PULL = 1.5;
+    for (var i = 0; i < dots.length; i++) {
+      var d = dots[i];
+      var ax = (d.hx - d.x) * 0.06;
+      var ay = (d.hy - d.y) * 0.06;
+      if (mouse.active) {
+        var dx = mouse.x - d.x;
+        var dy = mouse.y - d.y;
+        var dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < R && dist > 0.001) {
+          var f = (1 - dist / R) * PULL;
+          ax += (dx / dist) * f;
+          ay += (dy / dist) * f;
+        }
+      }
+      d.vx = (d.vx + ax) * 0.82;
+      d.vy = (d.vy + ay) * 0.82;
+      d.x += d.vx;
+      d.y += d.vy;
+    }
+    ctx.strokeStyle = lineColor;
+    ctx.lineWidth = 1;
+    var maxDist = 60;
+    for (var i = 0; i < dots.length; i++) {
+      for (var j = i + 1; j < dots.length; j++) {
+        var dx = dots[i].x - dots[j].x;
+        var dy = dots[i].y - dots[j].y;
+        var dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < maxDist) {
+          ctx.globalAlpha = 1 - dist / maxDist;
+          ctx.beginPath();
+          ctx.moveTo(dots[i].x, dots[i].y);
+          ctx.lineTo(dots[j].x, dots[j].y);
+          ctx.stroke();
+        }
+      }
+    }
+    ctx.globalAlpha = 1;
+    ctx.fillStyle = dotColor;
+    for (var i = 0; i < dots.length; i++) {
+      var d = dots[i];
+      var dx = mouse.x - d.x;
+      var dy = mouse.y - d.y;
+      var dist = Math.sqrt(dx * dx + dy * dy);
+      var r = (dist < R && mouse.active) ? 1.5 + (1 - dist / R) * 2 : 1.2;
+      ctx.beginPath();
+      ctx.arc(d.x, d.y, r, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    if (trail.length > 1) {
+      ctx.strokeStyle = trailColor;
+      ctx.lineWidth = 2;
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+      ctx.beginPath();
+      ctx.moveTo(trail[0].x, trail[0].y);
+      for (var i = 1; i < trail.length; i++) {
+        ctx.lineTo(trail[i].x, trail[i].y);
+      }
+      ctx.stroke();
+    }
+    requestAnimationFrame(animate);
+  }
+  function onMove(e) {
+    mouse.x = e.clientX;
+    mouse.y = e.clientY;
+    mouse.active = true;
+    trail.push({ x: e.clientX, y: e.clientY });
+    if (trail.length > 25) trail.shift();
+  }
+  function onLeave() {
+    mouse.active = false;
+    trail = [];
+  }
+  resize();
+  buildGrid();
+  document.addEventListener('mousemove', onMove);
+  document.addEventListener('mouseleave', onLeave);
+  window.addEventListener('resize', function() { resize(); buildGrid(); });
+  var themeObserver = new MutationObserver(function() {});
+  themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+  requestAnimationFrame(animate);
+})();
+
+/* ========== Scroll Reveal ========== */
+(function() {
+  var els = document.querySelectorAll('.reveal');
+  if (!els.length) return;
+  var obs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  els.forEach(function(el) { obs.observe(el); });
 })();
 </script>
 </body>

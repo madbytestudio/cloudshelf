@@ -1,9 +1,14 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Payment Successful — CloudShelf</title>
+  <meta property="og:title" content="Payment Successful — CloudShelf">
+  <meta property="og:description" content="Your CloudShelf payment has been confirmed. Return to the app to complete your purchase.">
+  <meta property="og:image" content="https://madbytestudio.github.io/cloudshelf/img/app-logo.png">
+  <meta property="og:url" content="https://madbytestudio.github.io/cloudshelf/payment-return.html">
+  <meta property="og:type" content="website">
   <link rel="icon" href="img/app-logo.png">
   <link rel="stylesheet" href="style.css">
   <style>
@@ -40,7 +45,7 @@
 <body>
   <div class="pay-body">
     <div class="pay-card">
-      <img src="img/app-logo.png" alt="CloudShelf" class="hero-logo">
+      <img src="img/app-logo.png" alt="CloudShelf" class="hero-logo" decoding="async">
       <div class="pay-icon">&#10003;</div>
       <h1>Payment Successful</h1>
       <p style="color:var(--text-muted);margin-bottom:4px">
@@ -95,7 +100,7 @@
         }, 1000);
       }
 
-      var saved = localStorage.getItem("cloudshelf-theme") || "light";
+      var saved = localStorage.getItem("cloudshelf-theme") || "dark";
       document.documentElement.setAttribute("data-theme", saved);
     })();
   </script>

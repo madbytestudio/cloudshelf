@@ -1,11 +1,22 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CloudShelf – Your Learning Companion</title>
   <meta name="description" content="CloudShelf is your learning companion — an offline-capable reader app with encrypted notes, DRM protection, and cross-platform support.">
+  <meta name="theme-color" content="#3b82f6">
+  <meta property="og:title" content="CloudShelf – Your Learning Companion">
+  <meta property="og:description" content="An offline PDF reader with encrypted notes, DRM protection, and cross-platform support for desktop and mobile.">
+  <meta property="og:image" content="https://madbytestudio.github.io/cloudshelf/img/app-logo.png">
+  <meta property="og:url" content="https://madbytestudio.github.io/cloudshelf/">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="img/app-logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -14,56 +25,103 @@
 
 <nav>
   <div class="nav-left">
-    <div class="nav-logo">
-      <img src="img/app-logo.png" alt="CloudShelf"> CloudShelf
-    </div>
-    <button class="menu-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')">☰</button>
+    <a href="index.html" class="nav-logo">
+      <img src="img/app-logo.png" alt="CloudShelf" decoding="async"> CloudShelf
+    </a>
+    <button class="menu-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open');this.classList.toggle('open')" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
     <div class="nav-links">
-      <a href="index.html">Home</a>
+      <a href="index.html" class="active">Home</a>
       <a href="privacy.html">Privacy</a>
       <a href="terms.html">Terms</a>
     </div>
   </div>
-  <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">Dark</button>
+  <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn" aria-label="Toggle theme">
+    <svg class="sun-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+    <svg class="moon-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  </button>
 </nav>
 
-<section id="hero">
+<section id="hero" class="reveal">
+  <div class="hero-bg-shapes" aria-hidden="true">
+    <div class="shape shape-1"></div>
+    <div class="shape shape-2"></div>
+    <div class="shape shape-3"></div>
+  </div>
   <div class="section-inner">
-    <div class="hero-logo-tilt">
-      <img src="img/app-logo.png" alt="CloudShelf" class="hero-logo">
-      <h1><span class="swap-text" id="hero-swap">CloudShelf</span></h1>
-    </div>
-    <p class="hero-tagline"><span class="typewriter-container"><span class="typewriter-text" id="typewriter-text"></span><span class="typewriter-cursor">|</span></span></p>
-    <p>An offline PDF reader with encrypted notes, DRM protection, and cross-platform support for desktop and mobile.</p>
-    <div class="hero-buttons">
-      <a href="#download" class="btn btn-primary">Download for Windows</a>
-      <a href="#download" class="btn btn-outline">Download for Android</a>
+    <div class="hero-content">
+      <div class="hero-text">
+        <img src="img/app-logo.png" alt="CloudShelf" class="hero-logo" decoding="async" fetchpriority="high">
+        <h1><span class="swap-text" id="hero-swap">CloudShelf</span></h1>
+        <p class="hero-tagline"><span class="typewriter-container"><span class="typewriter-text" id="typewriter-text"></span><span class="typewriter-cursor">|</span></span></p>
+        <p class="hero-desc">An offline PDF reader with encrypted notes, DRM protection, and cross-platform support for desktop and mobile.</p>
+        <div class="hero-buttons">
+          <a href="#download" class="btn btn-primary">
+            <svg class="download-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+              <line x1="8" y1="21" x2="16" y2="21"/>
+              <line x1="12" y1="17" x2="12" y2="21"/>
+              <g class="download-arrow">
+                <path d="M12 7v5l-3-3"/>
+                <path d="m12 12 3-3"/>
+              </g>
+            </svg>
+            Download for Windows
+          </a>
+          <a href="#download" class="btn btn-outline">
+            <svg class="download-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="5" y="2" width="14" height="20" rx="2" ry="2"/>
+              <line x1="12" y1="18" x2="12" y2="18"/>
+              <g class="download-arrow">
+                <path d="M12 8v6l-3-3"/>
+                <path d="m12 14 3-3"/>
+              </g>
+            </svg>
+            Download for Android
+          </a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-mockup">
+          <img src="img/Screenshot_2026-06-26-22-32-04-858_com.badbytestudio.cloudshelfreader.jpg" alt="CloudShelf app screenshot" loading="lazy" decoding="async" width="340" height="680">
+          <div class="mockup-glow"></div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<section id="features">
+<section id="features" class="reveal">
   <div class="section-inner">
     <h2 class="section-title">Features</h2>
     <p class="section-sub">Everything you need for a secure, private reading experience.</p>
     <div class="features-grid">
       <div class="feature-card">
-        <svg width="72" height="72" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
+        <div class="feature-icon">
+          <svg width="72" height="72" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
+        </div>
         <h3 class="scramble-text" data-text="Offline PDF Reading">Offline PDF Reading</h3>
         <p>Download and read your PDFs offline with fast, native rendering. No internet required.</p>
       </div>
       <div class="feature-card">
-        <svg width="72" height="72" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        <div class="feature-icon">
+          <svg width="72" height="72" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        </div>
         <h3 class="scramble-text" data-text="Encrypted Notes">Encrypted Notes</h3>
         <p>Take notes that are encrypted with AES-256-GCM and bound to your device. Only you can read them.</p>
       </div>
       <div class="feature-card">
-        <svg width="72" height="72" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/></svg>
+        <div class="feature-icon">
+          <svg width="72" height="72" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/></svg>
+        </div>
         <h3 class="scramble-text" data-text="DRM Protection">DRM Protection</h3>
         <p>Multi-layer protection — native FLAG_SECURE, canvas tampering, and forensic watermarking.</p>
       </div>
       <div class="feature-card">
-        <svg width="72" height="72" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12" y2="18"/></svg>
+        <div class="feature-icon">
+          <svg width="72" height="72" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12" y2="18"/></svg>
+        </div>
         <h3 class="scramble-text" data-text="Cross Platform">Cross Platform</h3>
         <p>Available on Windows desktop and Android mobile with the same great experience.</p>
       </div>
@@ -71,32 +129,43 @@
   </div>
 </section>
 
-<section id="gallery">
+<section id="gallery" class="reveal">
   <div class="section-inner">
     <h2 class="section-title">Gallery</h2>
+    <p class="section-sub">See CloudShelf in action.</p>
     <div class="coverflow-container">
       <div class="coverflow-track" id="coverflow-track"></div>
-      <button class="coverflow-arrow coverflow-arrow-left" id="coverflow-prev" aria-label="Previous">&#8249;</button>
-      <button class="coverflow-arrow coverflow-arrow-right" id="coverflow-next" aria-label="Next">&#8250;</button>
+      <button class="coverflow-arrow coverflow-arrow-left" id="coverflow-prev" aria-label="Previous">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <button class="coverflow-arrow coverflow-arrow-right" id="coverflow-next" aria-label="Next">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
     </div>
   </div>
 </section>
 
-<section id="download">
+<section id="download" class="reveal">
   <div class="section-inner">
     <h2 class="section-title">Download</h2>
     <p class="section-sub">Get CloudShelf for your platform.</p>
     <div class="download-buttons">
       <div class="download-card">
+        <div class="platform-icon">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="22" x2="16" y2="22"/><line x1="12" y1="18" x2="12" y2="22"/></svg>
+        </div>
         <h3 class="scramble-text" data-text="Windows">Windows</h3>
-                        <p>v0.3.0 — 64-bit</p>
-                        <a href="apps/CloudShelf_0.3.0_x64_en-US.msi" class="btn btn-primary" download>Download .msi</a>
+        <p>v0.3.0 — 64-bit</p>
+        <a href="apps/CloudShelf_0.3.0_x64_en-US.msi" class="btn btn-primary" download>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download .msi
+        </a>
         <details class="install-terminal">
           <summary class="terminal-bar">
             <span class="terminal-dots">
               <span class="dot"></span><span class="dot"></span><span class="dot"></span>
             </span>
-            <span class="terminal-title">install - windows</span>
+            <span class="terminal-title">install — windows</span>
           </summary>
           <div class="terminal-body">
             <div class="step">
@@ -142,22 +211,22 @@
         </details>
         <div class="update-footer">Updated: 10 July 2026, 22:00 MYT</div>
       </div>
-      <div class="download-card">
+      <div class="download-card card-green">
+        <div class="platform-icon">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12" y2="18"/></svg>
+        </div>
         <h3 class="scramble-text" data-text="Android">Android</h3>
         <p>v0.2.3 — APK (Standard)</p>
-        <div style="display:flex;flex-direction:column;align-items:center;gap:12px;width:100%;">
-          <a href="apps/CloudShelf-v0.2.3.apk" class="btn btn-primary" download>Download .apk</a>
-          <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&amp;data=https://madbytestudio.github.io/cloudshelf/apps/CloudShelf-v0.2.3.apk"
-               alt="QR code — scan to download APK"
-               style="border-radius:8px;border:2px solid var(--border);max-width:180px;height:auto;" />
-          <p style="font-size:0.8rem;color:var(--text-muted);margin:0;">Scan with your phone to download</p>
-        </div>
+        <a href="apps/CloudShelf-v0.2.3.apk" class="btn btn-green" download>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download .apk
+        </a>
         <details class="install-terminal">
           <summary class="terminal-bar">
             <span class="terminal-dots">
               <span class="dot"></span><span class="dot"></span><span class="dot"></span>
             </span>
-            <span class="terminal-title">install - android</span>
+            <span class="terminal-title">install — android</span>
           </summary>
           <div class="terminal-body">
             <div class="step">
@@ -201,24 +270,30 @@
             </div>
           </div>
         </details>
+        <div class="qr-section">
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https://madbytestudio.github.io/cloudshelf/apps/CloudShelf-v0.2.3.apk"
+               alt="QR code — scan to download APK"
+               loading="lazy" width="180" height="180" />
+          <p>Scan with your phone to download</p>
+        </div>
         <div class="update-footer">Updated: 10 July 2026, 22:00 MYT</div>
       </div>
-      <div class="download-card">
+      <div class="download-card card-red">
+        <div class="platform-icon">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12" y2="18"/></svg>
+        </div>
         <h3 class="scramble-text" data-text="Android (Huawei)">Android (Huawei)</h3>
         <p>v0.2.3 — APK (Huawei)</p>
-        <div style="display:flex;flex-direction:column;align-items:center;gap:12px;width:100%;">
-          <a href="apps/CloudShelf-v0.2.3-huawei.apk" class="btn btn-outline" style="border-color:#d9534f;color:#d9534f;" download>Download .apk</a>
-          <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&amp;data=https://madbytestudio.github.io/cloudshelf/apps/CloudShelf-v0.2.3-huawei.apk"
-                alt="QR code — scan to download Huawei APK"
-                style="border-radius:8px;border:2px solid var(--border);max-width:180px;height:auto;" />
-          <p style="font-size:0.8rem;color:var(--text-muted);margin:0;max-width:180px;text-align:center;">Scan with your phone to download for Huawei devices or APK(Standard) fails to render PDFs.</p>
-        </div>
+        <a href="apps/CloudShelf-v0.2.3-huawei.apk" class="btn btn-red" download>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download .apk
+        </a>
         <details class="install-terminal">
           <summary class="terminal-bar">
             <span class="terminal-dots">
               <span class="dot"></span><span class="dot"></span><span class="dot"></span>
             </span>
-            <span class="terminal-title">install - huawei</span>
+            <span class="terminal-title">install — huawei</span>
           </summary>
           <div class="terminal-body">
             <div class="step">
@@ -262,6 +337,12 @@
             </div>
           </div>
         </details>
+        <div class="qr-section">
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https://madbytestudio.github.io/cloudshelf/apps/CloudShelf-v0.2.3-huawei.apk"
+               alt="QR code — scan to download Huawei APK"
+               loading="lazy" width="180" height="180" />
+          <p>For Huawei devices or if standard APK fails to render PDFs</p>
+        </div>
         <div class="update-footer">Updated: 10 July 2026, 22:00 MYT</div>
       </div>
     </div>
@@ -269,52 +350,49 @@
 </section>
 
 <footer>
-  <div class="footer-links">
-    <a href="index.html">Home</a>
-    <a href="privacy.html">Privacy Policy</a>
-    <a href="terms.html">Terms of Service</a>
-    <span>
-      <img src="img/Logo.png" alt="" style="height:24px;width:auto;vertical-align:middle;">
-      Built by MADByte Studio &copy; 2026
-    </span>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <img src="img/Logo.png" alt="MADByte Studio" class="footer-logo" decoding="async">
+      <span>CloudShelf by MADByte Studio</span>
+    </div>
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Service</a>
+    </div>
+    <p class="footer-copy">&copy; 2026 MADByte Studio. All rights reserved.</p>
   </div>
 </footer>
 
 <script>
+/* ========== Theme Toggle ========== */
 function toggleTheme() {
   var html = document.documentElement;
   var theme = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
   html.setAttribute('data-theme', theme);
-  document.getElementById('themeBtn').textContent = theme === 'dark' ? 'Light' : 'Dark';
   localStorage.setItem('cloudshelf-theme', theme);
 }
 (function() {
-  var saved = localStorage.getItem('cloudshelf-theme') || 'light';
+  var saved = localStorage.getItem('cloudshelf-theme') || 'dark';
   document.documentElement.setAttribute('data-theme', saved);
-  document.getElementById('themeBtn').textContent = saved === 'dark' ? 'Light' : 'Dark';
 })();
 
 /* ========== Magnetic Buttons ========== */
 (function() {
   var cards = document.querySelectorAll('.download-card');
   var magData = [];
-
   function lerp(a, b, t) { return a + (b - a) * t; }
-
   cards.forEach(function(card) {
     var btn = card.querySelector('.btn');
     if (!btn) return;
-
     var d = { el: btn, cx: 0, cy: 0, tx: 0, ty: 0, curX: 0, curY: 0, active: false };
     magData.push(d);
-
     card.addEventListener('mouseenter', function() {
       var r = btn.getBoundingClientRect();
       d.cx = r.left + r.width / 2;
       d.cy = r.top + r.height / 2;
       d.active = true;
     });
-
     card.addEventListener('mousemove', function(e) {
       var r = btn.getBoundingClientRect();
       d.cx = r.left + r.width / 2;
@@ -326,13 +404,11 @@ function toggleTheme() {
       d.tx = dx * 0.5 * (1 - s * 0.15);
       d.ty = dy * 0.5 * (1 - s * 0.15);
     });
-
     card.addEventListener('mouseleave', function() {
       d.active = false;
       d.tx = 0; d.ty = 0;
     });
   });
-
   function animateMag() {
     for (var i = 0; i < magData.length; i++) {
       var d = magData[i];
@@ -343,7 +419,6 @@ function toggleTheme() {
     }
     requestAnimationFrame(animateMag);
   }
-
   requestAnimationFrame(animateMag);
 })();
 
@@ -351,7 +426,6 @@ function toggleTheme() {
 (function() {
   var el = document.getElementById('typewriter-text');
   if (!el) return;
-
   var phrases = [
     'Your Learning Companion',
     'Read Anywhere, Even Offline',
@@ -359,12 +433,9 @@ function toggleTheme() {
     'Built for Readers',
     'Cross-Platform Freedom'
   ];
-
   var i = 0, j = 0, deleting = false;
-
   function type() {
     var current = phrases[i];
-
     if (deleting) {
       el.textContent = current.substring(0, j - 1);
       j--;
@@ -385,7 +456,6 @@ function toggleTheme() {
       setTimeout(type, 50 + Math.random() * 50);
     }
   }
-
   setTimeout(type, 800);
 })();
 
@@ -393,48 +463,38 @@ function toggleTheme() {
 (function() {
   var el = document.getElementById('hero-swap');
   if (!el) return;
-
   var text = el.textContent;
   el.innerHTML = '';
   el.style.display = 'inline-block';
-
   var wrappers = [];
   var animating = false;
   var timeouts = [];
-
   text.split('').forEach(function(char) {
     var wrapper = document.createElement('span');
     wrapper.className = 'swap-char-wrapper';
-
     var primary = document.createElement('span');
     primary.className = 'swap-char';
     primary.textContent = char;
-
     var secondary = document.createElement('span');
     secondary.className = 'swap-char-secondary';
     secondary.textContent = char;
-
     wrapper.appendChild(primary);
     wrapper.appendChild(secondary);
     el.appendChild(wrapper);
     wrappers.push(wrapper);
   });
-
   function clearTimeouts() {
     timeouts.forEach(function(t) { clearTimeout(t); });
     timeouts = [];
   }
-
   function runSwap() {
     if (animating) return;
     animating = true;
     clearTimeouts();
-
     wrappers.forEach(function(w, idx) {
       var t = setTimeout(function() { w.classList.add('hover'); }, idx * 50);
       timeouts.push(t);
     });
-
     var reset = setTimeout(function() {
       wrappers.forEach(function(w, idx) {
         var t = setTimeout(function() { w.classList.remove('hover'); }, idx * 30);
@@ -445,7 +505,6 @@ function toggleTheme() {
     }, wrappers.length * 50 + 800);
     timeouts.push(reset);
   }
-
   el.addEventListener('mouseenter', runSwap);
 })();
 
@@ -453,40 +512,25 @@ function toggleTheme() {
 (function() {
   var els = document.querySelectorAll('.scramble-text');
   if (!els.length) return;
-
   var pool = '!@#$%^&*()_+-=[]{}|;:,.<>?ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-
   function scramble(el) {
     var target = el.getAttribute('data-text') || el.textContent;
     var frame = 0;
     var total = 20;
-
     function step() {
-      if (frame >= total) {
-        el.textContent = target;
-        return;
-      }
-
+      if (frame >= total) { el.textContent = target; return; }
       var progress = frame / total;
       var revealed = Math.floor(target.length * progress);
-
       var result = '';
       for (var k = 0; k < target.length; k++) {
-        if (k < revealed) {
-          result += target[k];
-        } else {
-          result += pool[Math.floor(Math.random() * pool.length)];
-        }
+        result += k < revealed ? target[k] : pool[Math.floor(Math.random() * pool.length)];
       }
-
       el.textContent = result;
       frame++;
       setTimeout(step, 50);
     }
-
     step();
   }
-
   var observer = new IntersectionObserver(function(entries) {
     entries.forEach(function(entry) {
       if (entry.isIntersecting) {
@@ -498,7 +542,6 @@ function toggleTheme() {
       }
     });
   }, { threshold: 0.5 });
-
   for (var i = 0; i < els.length; i++) {
     observer.observe(els[i]);
   }
@@ -508,7 +551,6 @@ function toggleTheme() {
 (function() {
   var cards = document.querySelectorAll('.feature-card');
   if (!cards.length) return;
-
   var observer = new IntersectionObserver(function(entries) {
     entries.forEach(function(entry) {
       if (entry.isIntersecting) {
@@ -517,9 +559,26 @@ function toggleTheme() {
       }
     });
   }, { threshold: 0.15 });
-
   for (var i = 0; i < cards.length; i++) {
     observer.observe(cards[i]);
+  }
+})();
+
+/* ========== Scroll Reveal for Sections ========== */
+(function() {
+  var els = document.querySelectorAll('.section-title, .section-sub, .download-card, .hero-content');
+  if (!els.length) return;
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('revealed');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  for (var i = 0; i < els.length; i++) {
+    els[i].classList.add('reveal-on-scroll');
+    observer.observe(els[i]);
   }
 })();
 
@@ -533,7 +592,6 @@ function toggleTheme() {
       var len = p.getTotalLength();
       p.style.setProperty('--path-len', len);
       p.classList.add('icon-blue');
-
       var clone = p.cloneNode();
       clone.removeAttribute('stroke');
       clone.style.setProperty('--path-len', len);
@@ -550,7 +608,6 @@ function toggleTheme() {
   var prevBtn = document.getElementById('coverflow-prev');
   var nextBtn = document.getElementById('coverflow-next');
   if (!track) return;
-
   var images = [
     'img/Screenshot_2026-06-26-22-32-04-858_com.badbytestudio.cloudshelfreader.jpg',
     'img/Screenshot_2026-06-26-22-32-32-667_com.badbytestudio.cloudshelfreader.jpg',
@@ -561,17 +618,15 @@ function toggleTheme() {
     'img/3.png',
     'img/4.png'
   ];
-
   var active = 0;
   var animating = false;
   var autoTimer;
   var cards = [];
   var loaded = 0;
-
   function getTransform(rel, total) {
     var abs = Math.abs(rel);
     var cardH = cards[0] ? cards[0].offsetHeight : 380;
-    var gapX = Math.min(200, cardH * 0.45);
+    var gapX = Math.min(window.innerWidth < 640 ? 120 : 200, cardH * 0.45);
     var tx = rel * gapX;
     var tz = -abs * 120;
     var ry = -rel * 10;
@@ -579,14 +634,12 @@ function toggleTheme() {
     var opacity = Math.max(0.15, 1 - abs * 0.15);
     return { tx: tx, tz: tz, ry: ry, sc: sc, opacity: opacity, zIndex: total - abs };
   }
-
   function positionCards() {
     var n = images.length;
     cards.forEach(function(card, i) {
       var rel = i - active;
       if (rel > n / 2) rel -= n;
       if (rel < -n / 2) rel += n;
-
       var t = getTransform(rel, n);
       card.style.transform = 'translateX(' + t.tx + 'px) translateZ(' + t.tz + 'px) rotateY(' + t.ry + 'deg) scale(' + t.sc + ')';
       card.style.opacity = t.opacity;
@@ -594,17 +647,14 @@ function toggleTheme() {
       card.classList.toggle('active', i === active);
     });
   }
-
   function init() {
     images.forEach(function(src, i) {
       var card = document.createElement('div');
       card.className = 'coverflow-card';
-
       var img = new Image();
       img.draggable = false;
       img.loading = 'lazy';
       img.alt = 'Screenshot ' + (i + 1);
-
       img.onload = function() {
         var cardW = card.offsetWidth;
         card.style.marginLeft = -(cardW / 2) + 'px';
@@ -612,16 +662,14 @@ function toggleTheme() {
         loaded++;
         if (loaded === images.length) positionCards();
       };
-
       img.src = src;
       card.appendChild(img);
-
       card.addEventListener('click', function() { goTo(i); });
+      card.addEventListener('touchstart', function() { goTo(i); });
       track.appendChild(card);
       cards.push(card);
     });
   }
-
   function goTo(index) {
     if (animating || index === active) return;
     animating = true;
@@ -629,22 +677,19 @@ function toggleTheme() {
     positionCards();
     setTimeout(function() { animating = false; }, 500);
   }
-
   function next() { goTo(active + 1); }
   function prev() { goTo(active - 1); }
-
   function startAuto() { stopAuto(); autoTimer = setInterval(next, 3000); }
   function stopAuto() { if (autoTimer) { clearInterval(autoTimer); autoTimer = null; } }
-
   prevBtn.addEventListener('click', prev);
   nextBtn.addEventListener('click', next);
   track.addEventListener('mouseenter', stopAuto);
   track.addEventListener('mouseleave', startAuto);
+  track.addEventListener('touchstart', stopAuto);
   document.addEventListener('keydown', function(e) {
     if (e.key === 'ArrowLeft') prev();
     if (e.key === 'ArrowRight') next();
   });
-
   init();
   startAuto();
 })();
@@ -653,19 +698,16 @@ function toggleTheme() {
 (function() {
   var canvas = document.getElementById('kinetic-canvas');
   if (!canvas) return;
-
   var ctx = canvas.getContext('2d');
   var W, H, dots = [];
   var mouse = { x: -9999, y: -9999, active: false };
   var trail = [];
-
   function resize() {
     W = window.innerWidth;
     H = window.innerHeight;
     canvas.width = W;
     canvas.height = H;
   }
-
   function buildGrid() {
     dots = [];
     var spacing = 35;
@@ -678,26 +720,20 @@ function toggleTheme() {
       }
     }
   }
-
   function isDark() {
     return document.documentElement.getAttribute('data-theme') === 'dark';
   }
-
   function animate() {
     var dark = isDark();
     var dotColor = dark ? 'rgba(255,255,255,0.3)' : 'rgba(0,0,0,0.1)';
     var lineColor = dark ? 'rgba(128,172,255,0.08)' : 'rgba(59,130,246,0.06)';
     var trailColor = dark ? 'rgba(38,100,235,0.2)' : 'rgba(59,130,246,0.1)';
-
     ctx.clearRect(0, 0, W, H);
-
     var R = 350, PULL = 1.5;
-
     for (var i = 0; i < dots.length; i++) {
       var d = dots[i];
       var ax = (d.hx - d.x) * 0.06;
       var ay = (d.hy - d.y) * 0.06;
-
       if (mouse.active) {
         var dx = mouse.x - d.x;
         var dy = mouse.y - d.y;
@@ -708,14 +744,11 @@ function toggleTheme() {
           ay += (dy / dist) * f;
         }
       }
-
       d.vx = (d.vx + ax) * 0.82;
       d.vy = (d.vy + ay) * 0.82;
       d.x += d.vx;
       d.y += d.vy;
     }
-
-    // Lines
     ctx.strokeStyle = lineColor;
     ctx.lineWidth = 1;
     var maxDist = 60;
@@ -734,8 +767,6 @@ function toggleTheme() {
       }
     }
     ctx.globalAlpha = 1;
-
-    // Dots
     ctx.fillStyle = dotColor;
     for (var i = 0; i < dots.length; i++) {
       var d = dots[i];
@@ -747,8 +778,6 @@ function toggleTheme() {
       ctx.arc(d.x, d.y, r, 0, Math.PI * 2);
       ctx.fill();
     }
-
-    // Trail
     if (trail.length > 1) {
       ctx.strokeStyle = trailColor;
       ctx.lineWidth = 2;
@@ -761,10 +790,8 @@ function toggleTheme() {
       }
       ctx.stroke();
     }
-
     requestAnimationFrame(animate);
   }
-
   function onMove(e) {
     mouse.x = e.clientX;
     mouse.y = e.clientY;
@@ -772,21 +799,17 @@ function toggleTheme() {
     trail.push({ x: e.clientX, y: e.clientY });
     if (trail.length > 25) trail.shift();
   }
-
   function onLeave() {
     mouse.active = false;
     trail = [];
   }
-
   resize();
   buildGrid();
   document.addEventListener('mousemove', onMove);
   document.addEventListener('mouseleave', onLeave);
   window.addEventListener('resize', function() { resize(); buildGrid(); });
-
   var themeObserver = new MutationObserver(function() {});
   themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
-
   requestAnimationFrame(animate);
 })();
 
@@ -795,12 +818,9 @@ function toggleTheme() {
   var tilt = document.querySelector('.hero-logo-tilt');
   var logo = document.querySelector('.hero-logo');
   if (!tilt || !logo) return;
-
   var current = { rx: 0, ry: 0, tx: 0, ty: 0 };
   var target = { rx: 0, ry: 0, tx: 0, ty: 0 };
-
   function lerp(a, b, t) { return a + (b - a) * t; }
-
   function animate() {
     current.rx = lerp(current.rx, target.rx, 0.08);
     current.ry = lerp(current.ry, target.ry, 0.08);
@@ -810,11 +830,9 @@ function toggleTheme() {
     logo.style.transform = 'translateX(' + current.tx + 'px) translateY(' + current.ty + 'px)';
     requestAnimationFrame(animate);
   }
-
   function map(value, inMin, inMax, outMin, outMax) {
     return (value - inMin) / (inMax - inMin) * (outMax - outMin) + outMin;
   }
-
   document.addEventListener('pointermove', function(e) {
     var x = e.clientX / window.innerWidth;
     var y = e.clientY / window.innerHeight;
@@ -823,13 +841,34 @@ function toggleTheme() {
     target.tx = map(x, 0, 1, -45, 45);
     target.ty = map(y, 0, 1, -45, 45);
   });
-
   document.addEventListener('pointerleave', function() {
     target.rx = 0; target.ry = 0;
     target.tx = 0; target.ty = 0;
   });
-
   requestAnimationFrame(animate);
+})();
+
+/* ========== Close mobile menu on link click ========== */
+document.querySelectorAll('.nav-links a').forEach(function(link) {
+  link.addEventListener('click', function() {
+    document.querySelector('.nav-links').classList.remove('open');
+    document.querySelector('.menu-toggle').classList.remove('open');
+  });
+});
+
+/* ========== Scroll Reveal ========== */
+(function() {
+  var els = document.querySelectorAll('.reveal');
+  if (!els.length) return;
+  var obs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  els.forEach(function(el) { obs.observe(el); });
 })();
 </script>
 </body>
