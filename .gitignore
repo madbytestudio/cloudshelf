@@ -4,10 +4,6 @@ opencode.json
 
 # build artifacts
 cloudshelf.zip
-*.msi
-*.msi.sig
-*.apk
-*.apk.sig
 
 # OS
 .DS_Store
