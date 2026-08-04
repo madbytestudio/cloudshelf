@@ -1,3 +1,3 @@
-See [release-notes-0.3.2.md](../release-notes-0.3.2.md) for the latest release.
+See [release-notes-0.3.5.md](../release-notes-0.3.5.md) for the latest release.
 
-Previous: [v0.3.1 / v0.2.4](../release-notes-0.2.9.md)
+Previous: [v0.3.2 / v0.2.5](../release-notes-0.3.2.md)
