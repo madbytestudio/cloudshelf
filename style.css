@@ -485,6 +485,20 @@ section {
   box-shadow: 0 4px 16px var(--primary-glow);
 }
 
+/* Temporarily disabled download buttons */
+.btn-disabled {
+  opacity: 0.45;
+  pointer-events: none;
+  cursor: not-allowed;
+  box-shadow: none !important;
+  filter: grayscale(0.4);
+  transform: none !important;
+}
+
+.is-hidden {
+  display: none !important;
+}
+
 .btn-primary:hover {
   color: #fff;
   transform: translate(var(--mx), calc(var(--my) + -2px));
