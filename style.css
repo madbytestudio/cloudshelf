@@ -809,6 +809,15 @@ section {
   height: auto;
 }
 
+.qr-section svg {
+  display: block;
+  width: 160px;
+  height: 160px;
+  border-radius: 12px;
+  border: 2px solid var(--border);
+  background: #fff;
+}
+
 .qr-section p {
   font-size: 0.75rem;
   color: var(--text-muted);
@@ -1243,8 +1252,14 @@ footer {
     padding: 24px 20px;
   }
 
-  .qr-section img {
+  .qr-section img,
+  .qr-section svg {
     max-width: 140px;
+  }
+
+  .qr-section svg {
+    width: 140px;
+    height: 140px;
   }
 
   footer {

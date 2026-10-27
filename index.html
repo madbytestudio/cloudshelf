@@ -270,7 +270,7 @@
             </div>
           </div>
         </details>
-        <div class="qr-section is-hidden">
+        <div class="qr-section">
           <p>Scan with your phone to download</p>
         </div>
         <div class="update-footer">Updated: 27 October 2026</div>
@@ -334,7 +334,7 @@
             </div>
           </div>
         </details>
-        <div class="qr-section is-hidden">
+        <div class="qr-section">
           <p>For Huawei devices or if standard APK fails to render PDFs</p>
         </div>
         <div class="update-footer">Updated: 27 October 2026</div>
@@ -359,7 +359,39 @@
   </div>
 </footer>
 
+<script src="js/qrcode.min.js"></script>
 <script>
+/* ========== QR Codes ========== */
+/* Generated in the browser from each card's own download link, so the QR can
+   never point at an older APK than the button above it. */
+(function() {
+  if (typeof qrcode !== 'function') return;
+  document.querySelectorAll('.download-card').forEach(function(card) {
+    var link = card.querySelector('a.btn[href]');
+    var section = card.querySelector('.qr-section');
+    if (!link || !section) return;
+    if (!/\.apk$/i.test(link.getAttribute('href') || '')) return;
+    if (section.querySelector('svg')) return;
+    try {
+      var qr = qrcode(0, 'M');
+      qr.addData(link.href);
+      qr.make();
+      var name = (card.querySelector('h3') || {}).textContent || 'CloudShelf';
+      name = name.trim();
+      var slug = name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+      section.insertAdjacentHTML('afterbegin', qr.createSvgTag({
+        cellSize: 4,
+        margin: 8,
+        scalable: true,
+        alt: { text: 'QR code to download CloudShelf for ' + name, id: 'qr-alt-' + slug },
+        title: { text: 'CloudShelf ' + name, id: 'qr-title-' + slug }
+      }));
+    } catch (e) {
+      console.warn('QR generation failed:', e);
+    }
+  });
+})();
+
 /* ========== Theme Toggle ========== */
 function toggleTheme() {
   var html = document.documentElement;
